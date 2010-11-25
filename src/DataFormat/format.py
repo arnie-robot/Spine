@@ -3,7 +3,7 @@
 # Standard imports
 
 # DataFormat class
-class DataFormat(object):
+class Format(object):
 
     # Holds the format for a conversion
     dataformat = None

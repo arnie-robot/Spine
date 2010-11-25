@@ -4,7 +4,7 @@
 import socket
 
 # Interface class
-class Interface(object):
+class I(object):
 
     # Default host and port
     host = "192.168.1.1"

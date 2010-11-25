@@ -3,11 +3,11 @@
 # Standard imports
 
 # Custom imports
-from dataformat import *
-from interface import *
+import DataFormat
+import Interface
 
 # OutputInterface class
-class Output(Interface, DataFormat):
+class Output(Interface.I, DataFormat.Format):
 
     # Initialise the OutputInterface
     def __init__(self, host = None, port = None):

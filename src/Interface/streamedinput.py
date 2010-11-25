@@ -3,8 +3,9 @@
 # Standard imports
 
 # Custom imports
-from inputinterface import *
+import DataFormat
+import Interface
 
 # OutputInterface class
-class StreamedInput(InputInterface):
+class StreamedInput(Interface.Input):
     pass
