@@ -3,7 +3,7 @@
 # Standard imports
 
 # InterfaceFormat class
-class Format(object):
+class Converter(object):
 
     # Holds the name for the format
     dataformat = None
