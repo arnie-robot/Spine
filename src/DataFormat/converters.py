@@ -1,6 +1,7 @@
 # Spine by Chris Alexander
 
 # Standard imports
+import array
 
 # Custom imports
 import DataFormat
@@ -9,7 +10,11 @@ import DataFormat
 class SimulinkConverter(DataFormat.Converter):
 
     def inputConvert(self, data):
-        return data
+        s = DataFormat.Simulink()
+        arr = []
+        for i in range(len(data)/8):
+            arr.append(s.unpack(data[(i*8):((i+1)*8)]))
+        return arr
 
     def outputConvert(self, data):
         s = DataFormat.Simulink()
