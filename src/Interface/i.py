@@ -3,7 +3,7 @@
 # Standard imports
 import socket
 
-# Interface class
+# Interface I class
 class I(object):
 
     # Default host and port

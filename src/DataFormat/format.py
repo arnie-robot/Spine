@@ -2,7 +2,7 @@
 
 # Standard imports
 
-# DataFormat class
+# DataFormat Format class
 class Format(object):
 
     # Holds the format for a conversion

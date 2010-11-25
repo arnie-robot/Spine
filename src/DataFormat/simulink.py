@@ -3,7 +3,7 @@
 # Standard imports
 import struct
 
-# Simulink class
+# DataFormat Simulink class
 class Simulink(object):
 
     # Packs data into a format suitable for Simulink

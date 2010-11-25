@@ -6,7 +6,7 @@
 import DataFormat
 import Interface
 
-# OutputInterface class
+# Interface Input class
 class Input(Interface.I, DataFormat.Format):
 
     # The max number of bytes to receive from the socket

@@ -6,7 +6,7 @@
 import DataFormat
 import Interface
 
-# OutputInterface class
+# Interface Output class
 class Output(Interface.I, DataFormat.Format):
 
     # Initialise the OutputInterface

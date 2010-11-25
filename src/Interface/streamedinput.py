@@ -6,6 +6,6 @@
 import DataFormat
 import Interface
 
-# OutputInterface class
+# Interface StreamedInput class
 class StreamedInput(Interface.Input):
     pass
