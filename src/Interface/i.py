@@ -29,4 +29,4 @@ class I(object):
     # Shutdown closes the socket if it is active
     def shutdown(self):
         if self.socket:
-            self.socket.shutdown()
+            self.socket.close()

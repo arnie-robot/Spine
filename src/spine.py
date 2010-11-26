@@ -3,14 +3,16 @@
 ### Spine by Chris Alexander
 
 # Standard imports
-
+import Queue
+import time
 
 # Custom imports
 import DataFormat
 import Interface
+import Thread
 
-# Begin execution
-if __name__ == '__main__':
+# Main execution function
+def main():
     #o = Interface.Output("192.168.1.2", 25001)
     #o.initialise()
     #o.dataformat = DataFormat.SimulinkConverter()
@@ -25,4 +27,17 @@ if __name__ == '__main__':
     #s.initialise()
     #s.dataformat = DataFormat.SimulinkConverter()
     #s.start()
-    pass
+
+    q = Queue.Queue()
+    i = Thread.Output(q)
+    i.start()
+    q.put(Thread.Message("192.168.1.2", 25000, "Hello, World"))
+    time.sleep(1)
+    q.put(Thread.Message("192.168.1.2", 25000, "Hello, World 2"))
+    time.sleep(1)
+    q.put(Thread.Message("192.168.1.2", 25000, "Hello, World 3"))
+    q.put(Thread.Terminator())
+
+# Boilerplate
+if __name__ == '__main__':
+    main()
