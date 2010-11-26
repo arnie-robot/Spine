@@ -12,12 +12,12 @@ class Input(Interface.I, DataFormat.Format):
     # The max number of bytes to receive from the socket
     maxBytesReceive = 1024
 
-    # Initialise the OutputInterface
+    # Initialise the Input Interface
     def __init__(self, host = None, port = None):
         # Init the parent Interface
         super(Input, self).__init__(host, port)
 
-    # Initialisation for the Output
+    # Initialisation for the Input
     def initialise(self):
         # Initialise the parent interface
         super(Input, self).initialise()

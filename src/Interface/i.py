@@ -20,10 +20,11 @@ class I(object):
 
     # Initialise function to start up the socket
     def initialise(self):
-        if self.socket is None:
-            self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        else:
-            print "Socket already initialised"
+        # Shut it down if it is started already
+        if self.socket is not None:
+            self.socket.shutdown()
+        # Restart
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)    
 
     # Shutdown closes the socket if it is active
     def shutdown(self):
