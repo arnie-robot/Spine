@@ -39,11 +39,16 @@ class Output(threading.Thread):
             if isinstance(item, Thread.Message):
                 # A valid message is found, so process it accordingly
                 if self.interface is None or self.interface.host != item.host or self.interface.port != item.port:
+                    # Register we are changing name
+                    self.setName("_" + item.host + ":" + str(item.port))
                     if self.interface is not None:
                         # Shutdown existing interface if it exists
                         self.interface.shutdown()
+                    # Initialise a new Interface
                     self.interface = Interface.Output(item.host, item.port)
                     self.interface.initialise()
+                    # Change our name
+                    self.setName(item.host + ":" + str(item.port))
                 self.interface.send(item.message)
                 continue
             # Nothing valid found so come back soon

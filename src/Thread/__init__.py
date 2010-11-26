@@ -4,3 +4,4 @@
 from output import *
 from terminator import *
 from message import *
+from outputpool import *

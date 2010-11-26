@@ -27,16 +27,21 @@ def main():
     #s.initialise()
     #s.dataformat = DataFormat.SimulinkConverter()
     #s.start()
-
-    q = Queue.Queue()
-    i = Thread.Output(q)
-    i.start()
-    q.put(Thread.Message("192.168.1.2", 25000, "Hello, World"))
-    time.sleep(1)
-    q.put(Thread.Message("192.168.1.2", 25000, "Hello, World 2"))
-    time.sleep(1)
-    q.put(Thread.Message("192.168.1.2", 25000, "Hello, World 3"))
-    q.put(Thread.Terminator())
+    
+    p = Thread.OutputPool()
+    p.start()
+    p.send(Thread.Message("192.168.1.2", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.2", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.3", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.4", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.5", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.6", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.2", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.3", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.4", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.5", 25000, "Testy test test"))
+    p.send(Thread.Message("192.168.1.7", 25000, "Testy test test"))
+    p.stop()
 
 # Boilerplate
 if __name__ == '__main__':
