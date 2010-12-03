@@ -43,6 +43,10 @@ def main():
     p.send(Thread.Message("192.168.1.7", 25000, "Testy test test"))
     p.stop()
 
+    i = Thread.InputPool()
+    i.connect("192.168.1.1", 25000)
+    print i.read("192.168.1.1", 25000)
+
 # Boilerplate
 if __name__ == '__main__':
     main()

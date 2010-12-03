@@ -10,16 +10,10 @@ import Queue
 import Thread
 
 # Output Pool class
-class OutputPool(threading.Thread):
-
-    # Maximum number of permitted threads
-    maxThreads = 5
+class OutputPool(Thread.Pool):
 
     # The queue used for sending in requests to the pool
     queue = None
-
-    # The threads themselves
-    threads = []
 
     # Queues for the threads
     threadQueues = []
@@ -33,7 +27,7 @@ class OutputPool(threading.Thread):
     def run(self):
         while True:
             # Clean up any dead / removed threads
-            self.cleanPool()
+            self.clean()
             item = self.queue.get()
             if isinstance(item, Thread.Message):
                 self.assignToThread(item)
@@ -72,20 +66,6 @@ class OutputPool(threading.Thread):
                 self.startThread(item)
                 print "New thread started"
 
-    # Finds an already running thread for the host and port
-    def findThread(self, host, port, iter = 0):
-        i = 0;
-        for thread in self.threads:
-            if thread.getName() == host + ":" + str(port):
-                return i
-            i += 1
-        if iter > 0:
-            # Break out if this is more than the first time
-            return None
-        # It takes time to register a thread - so just check once more
-        time.sleep(0.005)
-        return self.findThread(host, port, iter + 1)
-
     # Start a new thread and pass the given message into it
     def startThread(self, message):
         threadqueue = Queue.Queue()
@@ -94,6 +74,12 @@ class OutputPool(threading.Thread):
         thread.start()
         self.threads.append(thread)
         self.threadQueues.append(threadqueue)
+
+    # Stops a specific thread
+    def stopThread(self, thread):
+        if thread < 0 or thread > len(self.threads):
+            return
+        self.threadQueues[thread].put(Thread.Terminator())
 
     # Stop all the threads in this pool
     def stopAll(self):
@@ -109,7 +95,7 @@ class OutputPool(threading.Thread):
         return count
 
     # Cleans the thread pool if threads are dead etc.
-    def cleanPool(self):
+    def clean(self):
         i = 0
         for thread in self.threads:
             if not thread.isAlive():

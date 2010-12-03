@@ -9,21 +9,7 @@ import Interface
 import Thread
 
 # Output Thread class
-class Output(threading.Thread):
-
-    # Amount of time to sleep between not having any requests
-    sleepTime = 0.1
-
-    # The queue that is used for requests
-    requestQueue = None
-
-    # The interface we are using
-    interface = None
-
-    # Initialise the output thread
-    def __init__(self, requestQueue):
-        self.requestQueue = requestQueue
-        super(Output, self).__init__()
+class Output(Thread.Interface):
 
     # Run loop for this thread
     def run(self):
