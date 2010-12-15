@@ -34,7 +34,6 @@ class OutputPool(Thread.Pool):
                 # We want to carry on if there are items still in the queue
                 continue
             if isinstance(item, Thread.Terminator):
-                print "Deactivated"
                 break
         # Now shut down the threads
         self.stopAll()
@@ -55,16 +54,13 @@ class OutputPool(Thread.Pool):
         if threadid is not None:
             # Found a thread to give it to, so dispatch to there
             self.threadQueues[threadid].put(item)
-            print "Item added to thread " + str(threadid)
         else:
             if len(self.threads) >= self.maxThreads:
                 # Too many threads already - so stick it in a random one
                 self.threadQueues[random.randint(0, len(self.threads)-1)].put(item)
-                print "Item added to random thread"
             else:
                 # Got space - start a new thread for it
                 self.startThread(item)
-                print "New thread started"
 
     # Start a new thread and pass the given message into it
     def startThread(self, message):

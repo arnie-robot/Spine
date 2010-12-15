@@ -3,6 +3,7 @@
 # Standard imports
 import time
 import threading
+import Queue
 
 # Custom imports
 import Interface
@@ -18,30 +19,34 @@ class Input(Thread.Interface):
     running = 0
 
     # Whether there is a pending read on this request
-    read = 0
+    doRead = 0
 
     # Value from the last read
     value = None
 
+    # The (redundant?) request queue
+    requestQueue = None
+
     # Initialise the output thread
-    def __init__(self, requestQueue):
+    def __init__(self, host, port):
+        # Initialise the parent
+        self.requestQueue = Queue.Queue()
+        super(Input, self).__init__(self.requestQueue)
         # Init the interface
-        if self.interface is None or self.interface.host != item.host or self.interface.port != item.port:
+        if self.interface is None or self.interface.host != host or self.interface.port != port:
             # Initialise a new Interface
-            self.interface = Interface.Input(item.host, item.port)
+            self.interface = Interface.Input(host, port)
             self.interface.initialise()
             # Change our name
-            self.setName(item.host + ":" + str(item.port))
-        # Initialise the parent
-        super(Input, self).__init__(requestQueue)
+            self.setName(host + ":" + str(port))
 
     # Run loop for this thread
     def run(self):
         self.running = 1
         while self.running == 1:
-            if self.read > 0:
+            if self.doRead > 0:
                 self.value = self.interface.receive()
-                self.read = 0
+                self.doRead = 0
             time.sleep(0.0005)
         self.interface.shutdown()
 
@@ -51,9 +56,9 @@ class Input(Thread.Interface):
 
     # Allows someone to read from this thread
     def read(self):
-        self.read = 1
+        self.doRead = 1
         i = 0
-        while self.read > 0 and i < self.waitTimeout:
+        while self.doRead > 0 and i < self.waitTimeout:
             time.sleep(0.0005)
             i += 1
         return self.value

@@ -19,6 +19,12 @@ class Pool(threading.Thread):
     # The threads themselves
     threads = []
 
+    # Initialisation the pool and start the threads
+    def __init__(self):
+        super(Pool, self).__init__()
+        self.threads = []
+        self.start()
+
     # Run for the thread - nothing to do here
     def run(self):
         pass

@@ -23,3 +23,16 @@ class SimulinkConverter(DataFormat.Converter):
         else:
             raise DataFormat.Exception("Cannot perform output conversion on invalid data type", type(data))
         return data
+
+class CSVConverter(DataFormat.Converter):
+
+    s = None
+
+    def __init__(self):
+        self.s = DataFormat.CSV()
+
+    def input(self, data):
+        return self.s.explode(data)
+
+    def output(self, data):
+        return self.s.implode(data)

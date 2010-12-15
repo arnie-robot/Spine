@@ -12,7 +12,7 @@ class InputPool(Thread.Pool):
     def connect(self, host, port):
         exist = self.findThread(host, port)
         if exist is None:
-            thread = Thread.Input(threadqueue)
+            thread = Thread.Input(host, port)
             thread.start()
             self.threads.append(thread)
 
@@ -28,4 +28,4 @@ class InputPool(Thread.Pool):
         thread = self.findThread(host,port)
         if thread is None:
             return False
-        return thread.read()
+        return self.threads[thread].read()
