@@ -32,6 +32,7 @@ class Output(Thread.Interface):
                         self.interface.shutdown()
                     # Initialise a new Interface
                     self.interface = Interface.Output(item.host, item.port)
+                    self.interface.dataformat = self.converter
                     self.interface.initialise()
                     # Change our name
                     self.setName(item.host + ":" + str(item.port))

@@ -20,6 +20,9 @@ class Interface(threading.Thread):
     # The interface we are using
     interface = None
 
+    # Converter to use for the interface once it is instanciated
+    converter = None
+
     # Initialise the interface thread
     def __init__(self, requestQueue):
         self.requestQueue = requestQueue

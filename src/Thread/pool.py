@@ -19,10 +19,18 @@ class Pool(threading.Thread):
     # The threads themselves
     threads = []
 
+    # Converters for the threads
+    converters = {}
+
     # Initialisation the pool and start the threads
     def __init__(self, autostart = True):
         super(Pool, self).__init__()
+
+        # Yet to figure out why we need to blank these off on init
+        # Let's just say it screws up otherwise :)
         self.threads = []
+        self.converters = {}
+
         if autostart:
             self.start()
 
@@ -32,11 +40,9 @@ class Pool(threading.Thread):
 
     # Finds an already running thread for the host and port
     def findThread(self, host, port, iter = 0):
-        i = 0;
-        for thread in self.threads:
+        for i, thread in enumerate(self.threads):
             if thread.getName() == host + ":" + str(port):
                 return i
-            i += 1
         if iter > 0:
             # Break out if this is more than the first time
             return None

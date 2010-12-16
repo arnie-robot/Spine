@@ -4,6 +4,7 @@
 from interface import *
 from output import Output
 from input import Input
+from streamedinput import StreamedInput
 from terminator import *
 from message import *
 from pool import *

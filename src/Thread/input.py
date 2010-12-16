@@ -13,7 +13,7 @@ import Thread
 class Input(Thread.Interface):
 
     # How long to wait for a response from the socket
-    waitTimeout = 1000
+    waitTimeout = 500
 
     # Whether or not this thread is running
     running = 0
@@ -27,15 +27,19 @@ class Input(Thread.Interface):
     # The (redundant?) request queue
     requestQueue = None
 
-    # Initialise the output thread
-    def __init__(self, host, port):
+    # Initialise the input thread
+    def __init__(self, host, port, converter = None):
         # Initialise the parent
         self.requestQueue = Queue.Queue()
         super(Input, self).__init__(self.requestQueue)
-        # Init the interface
+        self.configureInterface(host, port, converter)
+
+    # Init the interface
+    def configureInterface(self, host, port, converter):
         if self.interface is None or self.interface.host != host or self.interface.port != port:
             # Initialise a new Interface
             self.interface = Interface.Input(host, port)
+            self.interface.dataformat = converter
             self.interface.initialise()
             # Change our name
             self.setName(host + ":" + str(port))
@@ -47,7 +51,7 @@ class Input(Thread.Interface):
             if self.doRead > 0:
                 self.value = self.interface.receive()
                 self.doRead = 0
-            time.sleep(0.0005)
+            time.sleep(0.0001)
         self.interface.shutdown()
 
     # Stop this thread

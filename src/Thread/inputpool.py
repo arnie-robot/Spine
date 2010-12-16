@@ -9,10 +9,16 @@ import Thread
 class InputPool(Thread.Pool):
 
     # Connect to a port
-    def connect(self, host, port):
+    def connect(self, host, port, streamed = False):
         exist = self.findThread(host, port)
         if exist is None:
-            thread = Thread.Input(host, port)
+            converter = None
+            if host + ":" + str(port) in self.converters:
+                converter = self.converters[host + ":" + str(port)]
+            if streamed:
+                thread = Thread.StreamedInput(host, port, converter)
+            else:
+                thread = Thread.Input(host, port, converter)
             thread.start()
             self.threads.append(thread)
 

@@ -10,7 +10,7 @@ import Interface
 class Input(Interface.I, DataFormat.Format):
 
     # The max number of bytes to receive from the socket
-    maxBytesReceive = 1024
+    maxBytesReceive = 2048
 
     # Initialise the Input Interface
     def __init__(self, host = None, port = None):

@@ -67,6 +67,8 @@ class OutputPool(Thread.Pool):
         threadqueue = Queue.Queue()
         threadqueue.put(message)
         thread = Thread.Output(threadqueue)
+        if message.host + ":" + str(message.port) in self.converters:
+            thread.converter = self.converters[message.host + ":" + str(message.port)]
         thread.start()
         self.threads.append(thread)
         self.threadQueues.append(threadqueue)
