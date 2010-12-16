@@ -20,10 +20,11 @@ class Pool(threading.Thread):
     threads = []
 
     # Initialisation the pool and start the threads
-    def __init__(self):
+    def __init__(self, autostart = True):
         super(Pool, self).__init__()
         self.threads = []
-        self.start()
+        if autostart:
+            self.start()
 
     # Run for the thread - nothing to do here
     def run(self):
@@ -42,3 +43,7 @@ class Pool(threading.Thread):
         # It takes time to register a thread - so just check once more
         time.sleep(self.findTimeout)
         return self.findThread(host, port, iter + 1)
+
+    # Returns the thread object itself
+    def getThread(self, host, port):
+        return self.threads[self.findThread(host, port)]
