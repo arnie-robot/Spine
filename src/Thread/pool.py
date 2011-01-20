@@ -22,14 +22,20 @@ class Pool(threading.Thread):
     # Converters for the threads
     converters = {}
 
+    # Lookup table for the thread names to host/port combos
+    names = {}
+
     # Initialisation the pool and start the threads
-    def __init__(self, autostart = True):
+    def __init__(self, names, autostart = True):
         super(Pool, self).__init__()
 
         # Yet to figure out why we need to blank these off on init
         # Let's just say it screws up otherwise :)
         self.threads = []
         self.converters = {}
+
+        # Load in the name lookups
+        self.names = names
 
         if autostart:
             self.start()
@@ -49,6 +55,13 @@ class Pool(threading.Thread):
         # It takes time to register a thread - so just check once more
         time.sleep(self.findTimeout)
         return self.findThread(host, port, iter + 1)
+
+    # Returns a thread based on its name
+    def findThreadByName(self, name):
+        for k, v in self.names.items():
+            if (k == name):
+                return self.findThread(v[0], v[1])
+        return None
 
     # Returns the thread object itself
     def getThread(self, host, port):

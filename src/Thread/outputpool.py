@@ -19,9 +19,9 @@ class OutputPool(Thread.Pool):
     threadQueues = []
 
     # Initialisation for the pool
-    def __init__(self):
+    def __init__(self, names):
         self.queue = Queue.Queue()
-        super(OutputPool, self).__init__()
+        super(OutputPool, self).__init__(names)
 
     # Run the pool
     def run(self):
@@ -50,7 +50,10 @@ class OutputPool(Thread.Pool):
 
     # Assigns a message item to a thread, accounting for existing values etc.
     def assignToThread(self, item):
-        threadid = self.findThread(item.host, item.port)
+        threadid = self.findThreadByName(item.name)
+        data = self.names[item.name]
+        item.host = data[0]
+        item.port = data[1]
         if threadid is not None:
             # Found a thread to give it to, so dispatch to there
             self.threadQueues[threadid].put(item)

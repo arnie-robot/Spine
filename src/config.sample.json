@@ -1,0 +1,26 @@
+{
+    "host":"192.168.1.1",
+    "loglevel":"debug",
+    "interfaces":{
+        "input": {
+            "kinect": {
+                "port":25000,
+                "streamed":true,
+                "format":"csv"
+            }
+        },
+        "output": {
+            "arm": {
+                "host":"192.168.1.80",
+                "port":25001,
+                "format":"simulink"
+            }
+        }
+    },
+    "connections":[
+        {
+            "input":"kinect",
+            "output":"arm"
+        }
+    ]
+}

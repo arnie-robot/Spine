@@ -7,7 +7,8 @@
 # Thread Message class
 class Message():
 
-    # Host and port for this message / where it was from
+    # Name, host, port for the connection where this message is from/to
+    name = None
     host = None
     port = None
 
@@ -15,7 +16,6 @@ class Message():
     message = None
 
     # Initialise with default values
-    def __init__(self, host, port, message):
-        self.host = host
-        self.port = port
+    def __init__(self, name, message):
+        self.name = name
         self.message = message

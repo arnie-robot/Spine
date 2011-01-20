@@ -1,6 +1,7 @@
 # Spine by Chris Alexander
 
 # Standard imports
+import logging
 
 # Custom imports
 import Thread
@@ -12,6 +13,7 @@ class InputPool(Thread.Pool):
     def connect(self, host, port, streamed = False):
         exist = self.findThread(host, port)
         if exist is None:
+            logging.debug("Connecting to " + host + ":" + str(port) + "...")
             converter = None
             if host + ":" + str(port) in self.converters:
                 converter = self.converters[host + ":" + str(port)]
@@ -27,11 +29,12 @@ class InputPool(Thread.Pool):
         exist = self.findThread(host, port)
         if exist is None:
             return None
+        logging.debug("Disconnecting from " + host + ":" + str(port))
         self.threads[exist].shutdown()
 
     # Reads a value from the host/port
-    def read(self, host, port):
-        thread = self.findThread(host,port)
+    def read(self, name):
+        thread = self.findThreadByName(name)
         if thread is None:
             return False
         return self.threads[thread].read()
