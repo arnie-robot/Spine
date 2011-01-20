@@ -2,6 +2,9 @@
 
 # Standard imports
 
+# Custom imports
+import DataFormat
+
 # DataFormat Converter class
 class Converter(object):
 
@@ -31,3 +34,12 @@ class Converter(object):
     # Convert a single output value
     def output(self, data):
         return data
+
+    # returns a converter based on those available
+    def getConverter(self, converter):
+        if converter == "simulink":
+            return DataFormat.SimulinkConverter()
+        elif converter == "csv":
+            return DataFormat.CSVConverter()
+        else:
+            return None
