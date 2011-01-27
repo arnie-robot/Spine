@@ -20,3 +20,7 @@ This allows efficient conversion of data into and out of the application when co
 ### Interface
 
 This package provides interfacing capabilities for dispatching, receiving individual and receiving streamed data over the network.
+
+### Thread
+
+Provides thread pooling, input and output pools, thread signalling messengers in order to coordinate a set of threads to do whatever you want
