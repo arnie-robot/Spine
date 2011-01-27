@@ -13,4 +13,4 @@ class CSV(object):
 
     # Implodes a set of data into a CSV string
     def implode(self, data):
-        return data.join(',')
+        return ','.join(map(str, data))

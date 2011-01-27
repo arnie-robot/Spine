@@ -31,7 +31,7 @@ class SimulinkConverter(DataFormat.Converter):
             if type(data) == type(tuple()):
                 data = list(data)
             for i, item in enumerate(data):
-                data[i] = self.s.pack(int(item))
+                data[i] = self.s.pack(float(item))
             data = ''.join(data)
         else:
             raise DataFormat.Exception("Cannot perform output conversion on invalid data type", type(data))
