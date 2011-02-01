@@ -22,6 +22,9 @@ class Pool(threading.Thread):
     # Converters for the threads
     converters = {}
 
+    # Transforms for the threads
+    transforms = {}
+
     # Lookup table for the thread names to host/port combos
     names = {}
 
@@ -33,6 +36,7 @@ class Pool(threading.Thread):
         # Let's just say it screws up otherwise :)
         self.threads = []
         self.converters = {}
+        self.transforms = {}
 
         # Load in the name lookups
         self.names = names

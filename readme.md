@@ -24,3 +24,7 @@ This package provides interfacing capabilities for dispatching, receiving indivi
 ### Thread
 
 Provides thread pooling, input and output pools, thread signalling messengers in order to coordinate a set of threads to do whatever you want
+
+## Dependencies
+
+Spine depends on the [Numpy library](http://numpy.scipy.org/) for matrix multiplication so make sure this is installed before execution.

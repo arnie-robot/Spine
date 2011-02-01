@@ -1,6 +1,7 @@
 ### Spine by Chris Alexander
 
 # Standard imports
+import numpy
 
 # Custom imports
 import DataFormat
@@ -25,8 +26,19 @@ class Input(Interface.I, DataFormat.Format):
         self.socket.bind((self.host, self.port))
 
     # Receive a single packet from the socket
-    def receive(self, ignoreFormat = 0):
+    def receive(self, ignoreFormat = 0, ignoreTransform = 0):
         data, addr = self.socket.recvfrom(self.maxBytesReceive)
         if self.dataformat and not ignoreFormat:
             data = self.dataformat.inputConvert(data)
+        if self.transform and not ignoreTransform:
+            # Apply the transform
+            transform = numpy.matrix(str(self.transform))
+            data.append('1')
+            datamatrix = numpy.matrix(';'.join(data))
+            resultmatrix = transform*datamatrix
+            data2 = resultmatrix.tolist()
+            data = []
+            for i in data2:
+                data.append(i[0])
+            data = data[:-1]
         return data

@@ -15,12 +15,15 @@ class InputPool(Thread.Pool):
         if exist is None:
             logging.debug("Connecting to " + host + ":" + str(port) + "...")
             converter = None
+            transform = self.transforms["default"]
             if host + ":" + str(port) in self.converters:
                 converter = self.converters[host + ":" + str(port)]
+            if host + ":" + str(port) in self.transforms:
+                transform = self.transforms[host + ":" + str(port)]
             if streamed:
-                thread = Thread.StreamedInput(host, port, converter)
+                thread = Thread.StreamedInput(host, port, converter, transform)
             else:
-                thread = Thread.Input(host, port, converter)
+                thread = Thread.Input(host, port, converter, transform)
             thread.start()
             self.threads.append(thread)
 

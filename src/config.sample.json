@@ -1,6 +1,9 @@
 {
     "host":"192.168.1.1",
     "loglevel":"debug",
+    "transforms": {
+        "default":"1 0 0 0;0 1 0 0;0 0 1 0;0 0 0 1"
+    },
     "interfaces":{
         "input": {
             "kinect": {
