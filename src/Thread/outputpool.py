@@ -105,6 +105,7 @@ class OutputPool(Thread.Pool):
             if not thread.isAlive():
                 self.threads.pop(i)
                 # Clean up its queue by passing them back into the pool
-                self.queue.extend(self.threadQueues[i])
+                while not self.threadQueues[i].empty():
+                    self.queue.put(self.threadQueues[i].get())
                 self.threadQueues.pop(i)
             i += 1

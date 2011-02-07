@@ -1,7 +1,6 @@
 ### Spine by Chris Alexander
 
 # Standard imports
-import numpy
 
 # Custom imports
 import DataFormat
@@ -31,14 +30,5 @@ class Input(Interface.I, DataFormat.Format):
         if self.dataformat and not ignoreFormat:
             data = self.dataformat.inputConvert(data)
         if self.transform and not ignoreTransform:
-            # Apply the transform
-            transform = numpy.matrix(str(self.transform))
-            data.append('1')
-            datamatrix = numpy.matrix(';'.join(data))
-            resultmatrix = transform*datamatrix
-            data2 = resultmatrix.tolist()
-            data = []
-            for i in data2:
-                data.append(i[0])
-            data = data[:-1]
+            data = self.applyTransform(data)
         return data

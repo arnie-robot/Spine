@@ -3,17 +3,13 @@
 ### Spine by Chris Alexander
 
 # Standard imports
-import Queue
 import time
 import copy
-import json
 import signal
 import sys
 import logging
 
 # Custom imports
-import DataFormat
-import Interface
 import Thread
 from config import *
 
