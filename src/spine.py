@@ -30,19 +30,20 @@ def main():
     logging.info("Initialising connections")
     inputData = {}
     while (True):
-        previousData = inputData
+        previousData = copy.copy(inputData)
         inputData = {}
         for connection in connections:
-            inputData[connection['input']] = i.read(connection['input'])
+            if connection['input'] not in inputData.keys():
+                inputData[connection['input']] = i.read(connection['input'])
         for connection in connections:
-            if (connection['input'] in previousData) and \
-                (connection['input'] in inputData) and \
-                (previousData[connection['input']] != inputData[connection['input']]):
+            if (connection['input'] in previousData.keys()) and \
+                (connection['input'] in inputData.keys()):
+                if (previousData[connection['input']] != inputData[connection['input']]):
                     
-                t = time.gmtime()
-                timestring = str(t[3]) + ":" + str(t[4]) + ":" + str(t[5])
-                logging.debug(timestring + ": Dispatching request to " + connection['output'] + " from " + connection['input'])
-                o.send(Thread.Message(connection['output'], copy.copy(inputData[connection['input']]))) # copy value or it goes BAD
+                    t = time.gmtime()
+                    timestring = str(t[3]) + ":" + str(t[4]) + ":" + str(t[5])
+                    logging.debug(timestring + ": Dispatching: " + connection['input'] + " => " + connection['output'])
+                    o.send(Thread.Message(connection['output'], copy.copy(inputData[connection['input']]))) # copy value or it goes BAD
 
 # Signal handler
 def signal_handler(signal, frame):

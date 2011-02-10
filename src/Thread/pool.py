@@ -5,7 +5,6 @@ import time
 import threading
 
 # Custom imports
-import Thread
 
 # Output Pool class
 class Pool(threading.Thread):

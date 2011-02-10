@@ -2,7 +2,6 @@
 
 # Standard imports
 import time
-import threading
 import Queue
 
 # Custom imports

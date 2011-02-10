@@ -1,12 +1,10 @@
 ### Spine by Chris Alexander
 
 # Standard imports
-import time
 import threading
 
 # Custom imports
 import Interface
-import Thread
 
 # Output Thread class
 class Interface(threading.Thread):

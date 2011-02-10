@@ -1,9 +1,6 @@
 ### Spine by Chris Alexander
 
 # Standard imports
-import time
-import threading
-import Queue
 
 # Custom imports
 import Interface

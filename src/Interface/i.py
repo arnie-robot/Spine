@@ -46,8 +46,12 @@ class I(object):
                 d_coord = d[0:3]
                 d_extras = d[3:]
             transform = numpy.matrix(str(self.transform))
-            d_coord.append('1')
-            datamatrix = numpy.matrix(';'.join([str(i) for i in d_coord]))
+            the_coord = []
+            for i in d_coord:
+                the_coord.append(i)
+            if (str(the_coord[len(the_coord)-1]) != "1"):
+                the_coord.append('1')
+            datamatrix = numpy.matrix(';'.join([str(i) for i in the_coord]))
             if invert:
                 resultmatrix = transform.I*datamatrix
             else:
@@ -55,8 +59,8 @@ class I(object):
             data2 = resultmatrix.tolist()
             coord = []
             for i in data2:
-                coord.append(i[0])
-            coord = coord[:-1]
+                if i[0] != 1.0:
+                    coord.append(i[0])
             coord.extend([float(i) for i in d_extras])
             retdata.append(coord)
         return retdata
