@@ -39,7 +39,7 @@ def main():
             if (connection['input'] in previousData.keys()) and \
                 (connection['input'] in inputData.keys()):
                 if (previousData[connection['input']] != inputData[connection['input']]):
-                    
+
                     t = time.gmtime()
                     timestring = str(t[3]) + ":" + str(t[4]) + ":" + str(t[5])
                     logging.debug(timestring + ": Dispatching: " + connection['input'] + " => " + connection['output'])

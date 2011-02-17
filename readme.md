@@ -28,3 +28,7 @@ Provides thread pooling, input and output pools, thread signalling messengers in
 ## Dependencies
 
 Spine depends on the [Numpy library](http://numpy.scipy.org/) for matrix multiplication so make sure this is installed before execution.
+
+## License
+
+Copyright 2011 Chris Alexander. Licensed under the MIT License. See the LICENSE file for more information
