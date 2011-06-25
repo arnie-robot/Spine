@@ -1,0 +1,144 @@
+{
+    "host":"192.168.1.1",
+    "loglevel":"debug",
+    "transforms": {
+        "default":"1 0 0 0;0 1 0 0;0 0 1 0;0 0 0 1",
+        "kinect":"-0.5 0 0 160;0 -0.5 0 240; 0 0 -0.333333 233.31313131;0 0 0 1",
+        "arm":"0 -1 0 0;1 0 0 0;0 0 1 0;0 0 0 1",
+        "head":"1 0 0 197; 0 1 0 369; 0 0 1 -328; 0 0 0 1"
+    },
+    "interfaces":{
+        "input": {
+            "kinect": {
+                "port":25000,
+                "streamed":true,
+                "format":"csv"
+            },
+            "arm": {
+                "port":25001,
+                "streamed":true,
+                "format":"simulink"
+            },
+            "pyt": {
+                "port":25050,
+                "streamed":true,
+                "format":"csv"
+            },
+            "eyes":{
+                "port":25060,
+                "streamed":true,
+                "format":"csv"
+            },
+            "brain": {
+                "port":26000,
+                "streamed":true,
+                "format":"csv"
+            },
+            "nn-brain": {
+                "port":26001,
+                "streamed":true,
+                "format":"simulink"
+            },
+            "head": {
+                "port":25065,
+                "streamed":true,
+                "format":"simulink"
+            },
+            "eye-ops": {
+                "port":25070,
+                "streamed":true,
+                "format":"simulink"
+            }
+        },
+        "output": {
+            "arm": {
+                "host":"192.168.1.80",
+                "port":25000,
+                "format":"simulink",
+                "threshold":50
+            },
+            "pyt": {
+                "host":"192.168.1.3",
+                "port":25051,
+                "format":"csv"
+            },
+            "pyt-command": {
+                "host":"192.168.1.3",
+                "port":25052,
+                "format":"csv"
+            },
+            "brain": {
+                "host":"192.168.1.2",
+                "port":26000,
+                "format":"csv"
+            },
+            "brain-env": {
+                "host":"192.168.1.2",
+                "port":26001,
+                "format":"csv"
+            },
+            "nn-brain": {
+                "host":"192.168.1.3",
+                "port":25053,
+                "format":"simulink"
+            },
+            "head": {
+                "host":"192.168.1.221",
+                "port":25000,
+                "format":"simulink"
+            },
+            "logger": {
+                "host":"192.168.1.1",
+                "port":25090,
+                "format":"csv"
+            },
+            "eye-ops": {
+                "host":"192.168.1.221",
+                "port":25050,
+                "format":"simulink"
+            }
+        }
+    },
+    "connections":[
+        {
+            "input":"kinect",
+            "output":"arm"
+        },
+        {
+            "input":"arm",
+            "output":"pyt"
+        },
+        {
+            "input":"arm",
+            "output":"brain"
+        },
+        {
+            "input":"arm",
+            "output":"nn-brain"
+        },
+        {
+            "input":"nn-brain",
+            "output":"arm"
+        },
+        {
+            "input":"eyes",
+            "output":"eye-ops"
+        },
+        {
+            "input":"eye-ops",
+            "output":"brain-env"
+        },
+        {
+            "input":"brain",
+            "output":"pyt-command"
+        },
+        {
+            "input":"brain",
+            "output":"head"
+        },
+        {
+            "input":"pyt",
+            "output":"arm"
+        }
+    ]
+}

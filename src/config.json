@@ -1,0 +1,195 @@
+{
+    "host":"192.168.1.1",
+    "loglevel":"debug",
+    "transforms": {
+        "default":"1 0 0 0;0 1 0 0;0 0 1 0;0 0 0 1",
+        "kinect":"-0.5 0 0 160;0 -0.5 0 240; 0 0 -0.333333 233.31313131;0 0 0 1",
+        "kinect-derp":"-1.5 0 0 160; 0 -1.5 0 240; 0 0 -0.33333333 233.31313131;0 0 0 1",
+        "arm":"0 -1 0 0;1 0 0 0;0 0 1 0;0 0 0 1",
+        "head":"1 0 0 197; 0 1 0 369; 0 0 1 -328; 0 0 0 1",
+        "eyes-old":"-1 0 0 320;0 -1 0 240;0 0 1 0;0 0 0 1",
+        "eyes":"-0.714 0 0 225;0 -1 0 240;0 0 1 0;0 0 0 1",
+        "kinect-logger":"-0.5 0 0 160;0 -0.5 0 240; 0 0 -0.333333 233.31313131;0 0 0 1",
+        "arm-logger":"0 -1 0 0;1 0 0 0;0 0 1 0;0 0 0 1"
+    },
+    "interfaces":{
+        "input": {
+            "kinect": {
+                "port":25000,
+                "streamed":true,
+                "format":"csv"
+            },
+            "arm": {
+                "port":25001,
+                "streamed":true,
+                "format":"simulink"
+            },
+            "pyt": {
+                "port":25050,
+                "streamed":true,
+                "format":"csv"
+            },
+            "eyes":{
+                "port":25060,
+                "streamed":true,
+                "format":"csv"
+            },
+            "brain": {
+                "port":26000,
+                "streamed":true,
+                "format":"csv"
+            },
+            "nn-brain": {
+                "port":25052,
+                "streamed":true,
+                "format":"csv"
+            },
+            "head": {
+                "port":25065,
+                "streamed":true,
+                "format":"simulink"
+            },
+            "head-cmd": {
+                "port":25075,
+                "streamed":true,
+                "format":"csv"
+            },
+            "eye-ops": {
+                "port":25070,
+                "streamed":true,
+                "format":"simulink"
+            },
+            "eye-fudge": {
+                "port":25099,
+                "streamed":true,
+                "format":"csv"
+            }
+        },
+        "output": {
+            "arm": {
+                "host":"192.168.1.80",
+                "port":25000,
+                "format":"simulink",
+                "threshold":50
+            },
+            "pyt": {
+                "host":"192.168.1.3",
+                "port":25051,
+                "format":"csv"
+            },
+            "pyt-command": {
+                "host":"192.168.1.3",
+                "port":25052,
+                "format":"csv"
+            },
+            "brain": {
+                "host":"192.168.1.2",
+                "port":26000,
+                "format":"csv"
+            },
+            "brain-env": {
+                "host":"192.168.1.2",
+                "port":26001,
+                "format":"csv"
+            },
+            "nn-brain": {
+                "host":"192.168.1.3",
+                "port":25053,
+                "format":"simulink"
+            },
+            "head": {
+                "host":"192.168.1.221",
+                "port":25000,
+                "format":"simulink"
+            },
+            "kinect-logger": {
+                "host":"192.168.1.1",
+                "port":25090,
+                "format":"csv"
+            },
+            "arm-logger": {
+                "host":"192.168.1.1",
+                "port":25091,
+                "format":"csv"
+            },
+            "brain-logger": {
+                "host":"192.168.1.1",
+                "port":25092,
+                "format":"csv"
+            },
+            "mjt-logger": {
+                "host":"192.168.1.1",
+                "port":25093,
+                "format":"csv"
+            },
+            "eyes-logger": {
+                "host":"192.168.1.1",
+                "port":25094,
+                "format":"csv"
+            },
+            "eye-ops": {
+                "host":"192.168.1.221",
+                "port":25050,
+                "format":"simulink"
+            }
+        }
+    },
+    "connections":[
+        {
+            "input":"arm",
+            "output":"pyt"
+        },
+        {
+            "input":"arm",
+            "output":"brain"
+        },
+        {
+            "input":"arm",
+            "output":"nn-brain"
+        },
+        {
+            "input":"nn-brain",
+            "output":"arm"
+        },
+        {
+            "input":"eyes",
+            "output":"eye-ops"
+        },
+        {
+            "input":"eye-fudge",
+            "output":"brain-env"
+        },
+        {
+            "input":"brain",
+            "output":"pyt-command"
+        },
+        {
+            "input":"pyt",
+            "output":"arm"
+        },
+        {
+            "input":"head-cmd",
+            "output":"head"
+        },
+        {
+            "input":"kinect",
+            "output":"head"
+        },
+        {
+            "input":"pyt",
+            "output":"mjt-logger"
+        },
+        {
+            "input":"arm",
+            "output":"arm-logger"
+        },
+        {
+            "input":"brain",
+            "output":"brain-logger"
+        },
+        {
+            "input":"eye-fudge",
+            "output":"eyes-logger"
+        }
+    ]
+}

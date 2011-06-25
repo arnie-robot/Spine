@@ -10,7 +10,7 @@ import threading
 class Pool(threading.Thread):
 
     # Maximum number of permitted threads
-    maxThreads = 5
+    maxThreads = 15
 
     # Specifies how long to wait between thread checks
     findTimeout = 0.005

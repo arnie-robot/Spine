@@ -70,11 +70,11 @@ def main():
                             sentval = sentData[connection['output']][0][k]
                             squared = squared + math.fabs(math.pow(inputval - sentval, 2))
                         diff = math.sqrt(squared)
-
+                        
                         if diff > outputInfo['threshold']:
                             # We are over the limit, we need to die
                             logging.debug(timestring + ": Aborted dispatch: " + connection['input'] + " => " + connection['output'] + ", " + str(diff) + " is greater than " + str(outputInfo['threshold']))
-                            break;
+                            continue;
 
                     # No check or check passed
                     logging.debug(timestring + ": Dispatching: " + connection['input'] + " => " + connection['output'] + " - " + str(inputData[connection['input']]))
