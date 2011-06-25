@@ -1,6 +1,3 @@
 pyc
 gitignore
 private
-/src/config.json
-
-/src/config.py
